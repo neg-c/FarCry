@@ -78,7 +78,6 @@ typedef unsigned char BYTE;
 
 #endif
 
-#include <SDL.h>
 
 // enable memory pool usage
 #define USE_NEWPOOL

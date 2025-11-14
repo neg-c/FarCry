@@ -61,6 +61,7 @@ struct SDeviceInfo;
 #include "D3DTexture.h"
 #include "D3DEnumeration.h"
 #include "D3DSettings.h"
+#include <SDL.h>
 
 class CMyDirect3DDevice9 : public IDirect3DDevice9
 {
