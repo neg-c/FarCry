@@ -96,5 +96,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ${SYSTEM_DEPS} SDL2 CryScriptSystem CryNetwork CryPhysics CryMovie CryInput CryFont CrySoundSystem XRenderD3D9
+    ${SYSTEM_DEPS} SDL2 CryScriptSystem CryNetwork CryPhysics CryMovie CryInput CryFont CrySoundSystem CryAISystem CryEntitySystem CryAnimation Cry3DEngine CryGame XRenderD3D9
 )
