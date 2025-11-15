@@ -18,7 +18,7 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include <afxres.h>
+#include <windows.h>
 
 //////////////////////////////////////////////////////////////////////////
 //:Associate with "Styles - CXTColorRef"
