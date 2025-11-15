@@ -2,11 +2,20 @@
 Source code of Far Cry 1 which was leaked 24 june 2023.
 https://archive.org/details/far-cry-1.34-complete
 
-Fixed for building in VS 2022 (Win32 only)
+ ## Build
 
-## Changes
+ Only the CMake build system is supported. Visual Studio solution files have been removed in favor of `CMakeLists.txt` and `CMakePresets.json`.
 
-* Ported code to Visual Studio 2022, currently builds only Win32 Debug configuration
+ ```
+ cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Debug
+ cmake --build build
+ ```
+
+ Use `-DCMAKE_BUILD_TYPE=Release` (or an appropriate preset) for non-Debug builds.
+
+ ## Changes
+
+ * Migrated the project to build exclusively with CMake (currently validated on Win32 Debug)
 * Replaced DXSDK to June 2010 version
 
 Code changes:
