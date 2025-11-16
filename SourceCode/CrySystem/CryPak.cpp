@@ -1154,6 +1154,26 @@ bool CCryPak::InitPack(const char *szBasePath, unsigned nFlags)
 /////////////////////////////////////////////////////
 bool CCryPak::Init(const char *szBasePath)
 {
+	if (szBasePath && szBasePath[0])
+	{
+		char szNormalizedPath[g_nMaxPath];
+		strncpy(szNormalizedPath, szBasePath, g_nMaxPath);
+		char* p;
+		for (p = szNormalizedPath; *p; ++p)
+		{
+			if (*p == g_cNonNativeSlash)
+				*p = g_cNativeSlash;
+			else
+				*p = tolower(*p);
+		}
+		if (p > szNormalizedPath && p[-1] != g_cNativeSlash)
+		{
+			*p = g_cNativeSlash;
+			*++p = '\0';
+		}
+		m_strMasterCDRoot = szNormalizedPath;
+		m_pLog->Log("Using custom game assets folder: %s", m_strMasterCDRoot.c_str());
+	}
 	return InitPack(szBasePath);
 }
 

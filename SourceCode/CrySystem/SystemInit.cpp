@@ -840,7 +840,7 @@ bool CSystem::InitFileSystem()
 	if (m_bEditor)
 		m_pIPak->RecordFileOpen( true );
 
-	return(m_pIPak->Init(""));
+	return(m_pIPak->Init(m_szGameAssetsFolder));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1104,6 +1104,11 @@ bool CSystem::Init( const SSystemInitParams &params )
 	m_pUserCallback = params.pUserCallback;
 	m_bDedicatedServer = params.bDedicatedServer;
 	m_bRelaunched = CmdlineSink.m_bRelaunching;
+	
+	if (params.szGameAssetsFolder && params.szGameAssetsFolder[0])
+		strncpy(m_szGameAssetsFolder, params.szGameAssetsFolder, MAX_PATH);
+	else
+		m_szGameAssetsFolder[0] = 0;
 
 	if (!params.pValidator)
 	{

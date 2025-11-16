@@ -18,6 +18,7 @@
 #ifdef WIN32
 #include <windows.h>
 #include <process.h>
+#include <shlobj.h>
 #endif
 
 //#define FARCRY_CD_CHECK_RUSSIAN
@@ -167,6 +168,52 @@ void SetMasterCDFolder()
 	SetCurrentDirectory( path_buffer );
 	GetCurrentDirectory( sizeof(szMasterCDFolder),szMasterCDFolder );
 }
+
+#ifdef WIN32
+bool SelectGameAssetsFolder(HWND hwndOwner, char* szPath, size_t nPathSize)
+{
+	BROWSEINFO bi = { 0 };
+	bi.hwndOwner = hwndOwner;
+	bi.lpszTitle = "Please select your Far Cry installation folder\n(e.g., C:\\Program Files (x86)\\Ubisoft\\Crytek\\Far Cry)";
+	bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+	
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+	if (pidl != 0)
+	{
+		if (SHGetPathFromIDList(pidl, szPath))
+		{
+			IMalloc* imalloc = 0;
+			if (SUCCEEDED(SHGetMalloc(&imalloc)))
+			{
+				imalloc->Free(pidl);
+				imalloc->Release();
+			}
+			return true;
+		}
+		IMalloc* imalloc = 0;
+		if (SUCCEEDED(SHGetMalloc(&imalloc)))
+		{
+			imalloc->Free(pidl);
+			imalloc->Release();
+		}
+	}
+	return false;
+}
+
+bool ValidateGameAssetsFolder(const char* szPath)
+{
+	if (!szPath || !szPath[0])
+		return false;
+	
+	char szTestPath[MAX_PATH];
+	_snprintf(szTestPath, sizeof(szTestPath), "%s\\FCData", szPath);
+	DWORD dwAttrib = GetFileAttributes(szTestPath);
+	if (dwAttrib == INVALID_FILE_ATTRIBUTES || !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
+		return false;
+	
+	return true;
+}
+#endif
 
 #ifdef FARCRY_CD_CHECK_RUSSIAN
 #include <winioctl.h>
@@ -673,6 +720,31 @@ bool RunGame(HINSTANCE hInstance,const char *sCmdLine)
 				nLen=MAX_CMDLINE_LEN;
 			strncpy(sip.szSystemCmdLine,szLocalCmdLine,nLen);
 		}
+		
+#ifdef WIN32
+		static char szGameAssetsFolder[MAX_PATH] = {0};
+		if (szGameAssetsFolder[0] == 0)
+		{
+			if (!SelectGameAssetsFolder(NULL, szGameAssetsFolder, sizeof(szGameAssetsFolder)) || 
+			    !ValidateGameAssetsFolder(szGameAssetsFolder))
+			{
+				MessageBox(NULL, 
+					"Failed to select valid Far Cry installation folder.\n"
+					"Please make sure the folder contains the FCData directory.", 
+					"FarCry Error", MB_OK | MB_ICONERROR);
+				return false;
+			}
+			
+			if (!SetCurrentDirectory(szGameAssetsFolder))
+			{
+				MessageBox(NULL, 
+					"Failed to change to the selected directory.", 
+					"FarCry Error", MB_OK | MB_ICONERROR);
+				return false;
+			}
+		}
+		sip.szGameAssetsFolder = szGameAssetsFolder;
+#endif
 
 #ifndef _XBOX
 		/////////////////////////////////////////////////////

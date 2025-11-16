@@ -122,6 +122,7 @@ struct SSystemInitParams
 	bool bTestMode;												// When runing in Automated testing mode.
 	bool bDedicatedServer;								// When runing a dedicated server.
 	ISystem *pSystem;											// Pointer to existing ISystem interface, it will be reused if not NULL.
+	const char* szGameAssetsFolder;				// Custom game assets folder path
 //	char szLocalIP[256];									// local IP address (needed if we have several servers on one machine)
 #if defined(LINUX)
 	void (*pCheckFunc)(void*);							// authentication function (must be set).
@@ -145,6 +146,7 @@ struct SSystemInitParams
 		bDedicatedServer = false;
 		pSystem = 0;
 		pCheckFunc = 0;
+		szGameAssetsFolder = 0;
 //		memset(szLocalIP,0,256);
 	}
 };

@@ -414,6 +414,9 @@ private: // ------------------------------------------------------
 
 	//! game path folder
 	char	m_szGameMOD[MAX_PATH];
+	
+	//! custom game assets folder path
+	char	m_szGameAssetsFolder[MAX_PATH];
 
 	//! to hold the values stored in system.cfg
 	//! because editor uses it's own values,
