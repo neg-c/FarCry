@@ -11,9 +11,13 @@ https://archive.org/details/far-cry-1.34-complete
  cmake --build build
  ```
 
- Use `-DCMAKE_BUILD_TYPE=Release` (or an appropriate preset) for non-Debug builds.
+Use `-DCMAKE_BUILD_TYPE=Release` (or an appropriate preset) for non-Debug builds.
 
- ## Changes
+## Running the Game
+
+After building the project, copy all folders from the game files directory to the `bin` directory of this project. This is required for the game to run successfully, as the executable needs the game assets and resources.
+
+## Changes
 
  * Migrated the project to build exclusively with CMake (currently validated on Win32 Debug)
 * Replaced DXSDK to June 2010 version
