@@ -123,7 +123,6 @@ endif()
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/SourceCode/CryCommon
     ${CMAKE_SOURCE_DIR}/SourceCode/RenderDll
     ${CMAKE_SOURCE_DIR}/SourceCode/RenderDll/Dx9Sdk/Include
     ${CMAKE_SOURCE_DIR}/Externals/SDL/include
@@ -137,6 +136,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /NODEFAULTLIB:libcp.lib /NODEFAULTLIB:LIBC.lib")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
+    CryCommon
     d3d9.lib
     d3dx9.lib
     DXErr.lib
@@ -144,6 +144,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     cgD3D9.lib
     ${ARCH_LIBS}
     winmm.lib
-
     SDL2
 )

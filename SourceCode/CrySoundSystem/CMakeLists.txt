@@ -21,7 +21,6 @@ set(SRC_FILES
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/SourceCode/CryCommon
     ${CMAKE_CURRENT_SOURCE_DIR}/OggVorbisInclude
 )
 
@@ -50,6 +49,7 @@ endif()
 
 if (MSVC)
 target_link_libraries(${PROJECT_NAME} PRIVATE
+    CryCommon
     ${CRYSOUND_LIB}
     ${OGG_STATIC_LIB}
     ${VORBIS_STATIC_LIB}
@@ -57,5 +57,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     legacy_stdio_definitions.lib
 )
 else() #TODO: remove this stub
-target_link_libraries(${PROJECT_NAME} PRIVATE)
+target_link_libraries(${PROJECT_NAME} PRIVATE CryCommon)
 endif()

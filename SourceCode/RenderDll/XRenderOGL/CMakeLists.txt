@@ -139,7 +139,6 @@ add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/SourceCode/CryCommon
     ${CMAKE_SOURCE_DIR}/SourceCode/RenderDll
     ${CMAKE_SOURCE_DIR}/SourceCode/RenderDll/Common/Shaders
 )
@@ -160,6 +159,7 @@ if (MSVC)
 endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
+    CryCommon
     ${ARCH_LIBS}
     ${SYSTEM_DEPS}
 )

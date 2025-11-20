@@ -1,3 +1,6 @@
+# Add CryCommon INTERFACE library first - it provides headers to all modules
+add_subdirectory(CryCommon)
+
 add_subdirectory(Cry3DEngine)
 add_subdirectory(CryAISystem)
 add_subdirectory(CryAnimation)
