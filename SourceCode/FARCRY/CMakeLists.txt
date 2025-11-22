@@ -7,11 +7,7 @@ set(SRC_FILES
 
 add_executable(${PROJECT_NAME} WIN32 ${SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/Externals/SDL/include
-)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE CryCommon SDL2 CrySystem)
+target_link_libraries(${PROJECT_NAME} PRIVATE CryCommon SDL2::SDL2 CrySystem)
 
 # Ensure all game modules are built (even though they're loaded dynamically at runtime)
 # This creates a build-order dependency without linking

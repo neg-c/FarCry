@@ -41,5 +41,7 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -D_DEBUG -g")
 endif()
 
-add_subdirectory(Externals)
+find_package(ZLIB REQUIRED)
+find_package(SDL2 REQUIRED)
+
 add_subdirectory(SourceCode)

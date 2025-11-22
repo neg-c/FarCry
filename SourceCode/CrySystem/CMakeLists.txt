@@ -62,21 +62,6 @@ set(SRC_FILES
     "ZipDirList.cpp"
     "ZipDirStructures.cpp"
     "ZipDirTree.cpp"
-    "zlib/adler32.c"
-    "zlib/compress.c"
-    "zlib/crc32.c"
-    "zlib/deflate.c"
-    "zlib/gzclose.c"
-    "zlib/gzlib.c"
-    "zlib/gzread.c"
-    "zlib/gzwrite.c"
-    "zlib/infback.c"
-    "zlib/inffast.c"
-    "zlib/inflate.c"
-    "zlib/inftrees.c"
-    "zlib/trees.c"
-    "zlib/uncompr.c"
-    "zlib/zutil.c"
 )
 
 if (MSVC)
@@ -97,5 +82,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     CryCommon
     ${SYSTEM_DEPS}
-    SDL2
+    ZLIB::ZLIB
+    SDL2::SDL2
 )
